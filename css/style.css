@@ -1,0 +1,361 @@
+:root {
+    --block-size: 30px;
+    --preview-width: 130px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #ffffff;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+}
+
+body.game-active {
+    /* 移除这个样式，保持与初始背景色一致 */
+}
+
+.game-container {
+    display: flex;
+    gap: 20px;
+    background-color: #1a1a1a;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+canvas#gameCanvas {
+    border: 2px solid #333;
+    background-color: #000080;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: var(--block-size) var(--block-size);
+}
+
+.preview-container {
+    width: var(--preview-width);
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+.preview-container canvas {
+    background-color: #000080;
+}
+
+.next-piece {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+canvas#previewCanvas {
+    border: 1px solid #444;
+    margin-top: 10px;
+}
+
+.score-container {
+    margin: 20px 0;
+    font-size: 1.2em;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+.controls ul {
+    list-style: none;
+    padding: 0;
+}
+
+.controls li {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.key {
+    display: inline-block;
+    padding: 2px 6px;
+    background-color: #2a2a2a;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 0.8em;
+}
+
+.screen {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #1a1a1a;  /* 菜单使用灰色背景 */
+    z-index: 100;
+    padding-top: 40px;
+}
+
+.screen.hidden {
+    display: none !important;
+}
+
+.screen h1 {
+    color: #ffffff;
+    font-size: 52px;
+    margin-bottom: 40px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.3);
+    letter-spacing: 5px;
+}
+
+.screen button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.3em;
+    margin: 10px;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
+.screen button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button {
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 1.2em;
+    background-color: #4a4a4a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #666;
+    transform: translateY(-2px);
+}
+
+.option {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    min-width: 300px;
+    text-align: center;
+}
+
+.option label {
+    margin-right: 15px;
+    color: #ffffff;
+}
+
+.option button {
+    margin-left: 10px;
+}
+
+/* 颜色选项容器 */
+.color-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* 颜色按钮样式 */
+.color-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* 选中状态 */
+.color-btn.active {
+    border-color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+/* 悬停效果 */
+.color-btn:hover {
+    transform: scale(1.1);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.adjust-background {
+    padding: 8px 16px;
+    margin: 10px;
+    font-size: 1.2em;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.adjust-background:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* 添加游戏区域容器样式 */
+.game-area {
+    position: relative;  /* 为游戏结束画面提供定位上下文 */
+}
+
+/* 修改游戏结束画面样式 */
+#gameOverScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);  /* 半透明黑色背景 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* 改为从顶部开始布局 */
+    align-items: center;
+    z-index: 100;
+    padding-top: 40px;  /* 与 body 的 padding-top 保持一致 */
+}
+
+#gameOverScreen h1 {
+    margin-top: 0;  /* 移除顶部边距 */
+    margin-bottom: 30px;  /* 调整与分数的间距 */
+}
+
+#gameOverScreen .final-score,
+#gameOverScreen .high-score {
+    margin: 10px 0;  /* 调整分数显示的间距 */
+    font-size: 24px;
+}
+
+#gameOverScreen button {
+    margin-top: 20px;  /* 增加按钮与分数的间距 */
+}
+
+/* 游戏结束遮罩层样式 */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;  /* 确保在游戏画布上方但在菜单下方 */
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+/* 游戏结束和暂停画面共用的样式 */
+#gameOverScreen, #pauseScreen {
+    position: fixed;
+    top: 40px;  /* 与 body 的 padding-top 保持一致 */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 40px);  /* 减去顶部的 padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);  /* 半透明黑色背景 */
+    z-index: 100;
+    padding-top: 40px;  /* 调整内部元素的顶部间距 */
+}
+
+/* 暂停画面的文字样式 */
+#pauseScreen p {
+    font-size: 24px;
+    margin-top: 20px;
+    color: white;
+}
+
+/* 选项界面的特殊样式调整 */
+#optionsScreen .option {
+    background-color: rgba(255, 255, 255, 0.1);  /* 半透明白色背景 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 按钮样式统一 */
+.screen button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.3em;
+    margin: 10px;
+    min-width: 200px;
+    transition: all 0.3s ease;
+}
+
+.screen button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.fireworks-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;  /* 允许点击穿透 */
+    z-index: 1000;        /* 确保在最上层 */
+}
+
+.new-record-message {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: #FFD700;  /* 金色 */
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    font-weight: bold;
+    z-index: 1001;  /* 确保在烟花层上方 */
+    pointer-events: none;
+    animation: pulse 1s infinite;
+}
+
+.new-record-message.hidden {
+    display: none;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+} 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="preview-container">
+            <div class="next-piece">
+                <h3>Next:</h3>
+                <canvas id="previewCanvas"></canvas>
+            </div>
+            <div class="score-container">
+                <div class="score">Score: <span id="score">0</span></div>
+                <div class="high-score">High: <span id="highScore">0</span></div>
+            </div>
+            <div class="controls">
+                <h4>Controls:</h4>
+                <ul>
+                    <li><span class="key">←→</span> Move</li>
+                    <li><span class="key">↑</span> Rotate</li>
+                    <li><span class="key">↓</span> Drop</li>
+                    <li><span class="key">Space</span> Drop+</li>
+                    <li><span class="key">P</span> Pause</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="menuScreen" class="screen">
+        <h1>TETRIS</h1>
+        <button id="startButton">Start Game</button>
+        <button id="optionsButton">Options</button>
+    </div>
+
+    <div id="optionsScreen" class="screen hidden">
+        <h2>Options</h2>
+        <div class="option">
+            <label>Speed Change Threshold:</label>
+            <span id="thresholdValue">300</span>
+            <button class="adjust-threshold">Change</button>
+        </div>
+        <div class="option">
+            <label>Speed Level:</label>
+            <span id="speedLevel">5</span>
+            <button class="adjust-speed">Change</button>
+        </div>
+        <div class="option">
+            <label>Background:</label>
+            <span id="bgColor">Navy</span>
+            <button class="adjust-background">Change</button>
+        </div>
+        <div class="option">
+            <label>Reset High Score:</label>
+            <button class="reset-score">Reset</button>
+        </div>
+        <button id="backButton">Back</button>
+    </div>
+
+    <div id="gameOverScreen" class="screen hidden">
+        <h1>Game Over!</h1>
+        <div class="final-score">Final Score: <span id="finalScore">0</span></div>
+        <div class="high-score">High Score: <span id="finalHighScore">0</span></div>
+        <button id="restartButton">Restart Game</button>
+        <button id="returnToMenuButton">Return to Menu</button>
+    </div>
+
+    <div id="pauseScreen" class="screen hidden">
+        <h1>PAUSED</h1>
+        <p>Press P to Continue</p>
+    </div>
+
+    <canvas id="fireworksCanvas" class="fireworks-layer"></canvas>
+    <div id="newRecordMessage" class="new-record-message hidden">NEW HIGH SCORE!</div>
+
+    <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/particle.js"></script>
+    <script type="module" src="js/tetromino.js"></script>
+    <script type="module" src="js/game.js"></script>
+</body>
+</html> 
